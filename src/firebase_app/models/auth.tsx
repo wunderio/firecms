@@ -40,7 +40,7 @@ export type FirebaseAuthDelegate =
 
     anonymousLogin: () => void;
 
-    phoneLogin: () => void;
+    phoneLogin: (phone: string) => void;
 
     appleLogin: () => void;
 

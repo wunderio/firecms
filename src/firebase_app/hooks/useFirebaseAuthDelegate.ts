@@ -10,8 +10,10 @@ import {
     OAuthProvider,
     onAuthStateChanged,
     signInWithEmailAndPassword,
+    signInWithPhoneNumber,
     signInWithPopup,
     signOut,
+    RecaptchaVerifier,
     TwitterAuthProvider,
     User as FirebaseUser
 } from "firebase/auth";
@@ -115,6 +117,15 @@ export const useFirebaseAuthDelegate = (
             .then(() => setAuthLoading(false));
     }
 
+    const phoneLogin = (phone: string) => {
+        const auth = getAuth();
+        const applicationVerifier = new RecaptchaVerifier("phone-auth-recaptcha", {}, auth);
+        setAuthLoading(true);
+        signInWithPhoneNumber(auth, phone, applicationVerifier)
+            .catch(setAuthProviderError)
+            .then(() => setAuthLoading(false));
+    }
+
     const appleLogin = () => {
         const provider = new OAuthProvider("apple.com");
         const options = getProviderOptions("apple.com");
@@ -210,6 +221,7 @@ export const useFirebaseAuthDelegate = (
         microsoftLogin,
         twitterLogin,
         emailPasswordLogin,
+        phoneLogin,
         fetchSignInMethodsForEmail: getSignInMethodsForEmail,
         createUserWithEmailAndPassword: registerWithPasswordEmail
     };
