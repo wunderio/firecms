@@ -9,7 +9,7 @@ import { AuthDelegate } from "../../models";
 export type FirebaseSignInProvider =
 // | 'email'
     | "password"
-    // | 'phone'
+    | "phone"
     | "anonymous"
     | "google.com"
     | "facebook.com"
@@ -39,6 +39,8 @@ export type FirebaseAuthDelegate =
     googleLogin: () => void;
 
     anonymousLogin: () => void;
+
+    phoneLogin: () => void;
 
     appleLogin: () => void;
 
