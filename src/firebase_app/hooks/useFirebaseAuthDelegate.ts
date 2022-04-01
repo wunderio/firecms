@@ -13,7 +13,7 @@ import {
     signInWithPhoneNumber,
     signInWithPopup,
     signOut,
-    RecaptchaVerifier,
+    ApplicationVerifier,
     TwitterAuthProvider,
     User as FirebaseUser
 } from "firebase/auth";
@@ -117,9 +117,8 @@ export const useFirebaseAuthDelegate = (
             .then(() => setAuthLoading(false));
     }
 
-    const phoneLogin = (phone: string) => {
+    const phoneLogin = (phone: string, applicationVerifier: ApplicationVerifier) => {
         const auth = getAuth();
-        const applicationVerifier = new RecaptchaVerifier("phone-auth-recaptcha", {}, auth);
         setAuthLoading(true);
         return signInWithPhoneNumber(auth, phone, applicationVerifier)
             .catch(setAuthProviderError)
