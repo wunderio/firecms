@@ -1,4 +1,4 @@
-import { User as FirebaseUser } from "firebase/auth";
+import { ConfirmationResult, User as FirebaseUser } from "firebase/auth";
 
 import { AuthDelegate } from "../../models";
 
@@ -40,7 +40,7 @@ export type FirebaseAuthDelegate =
 
     anonymousLogin: () => void;
 
-    phoneLogin: (phone: string) => void;
+    phoneLogin: (phone: string) => ConfirmationResult;
 
     appleLogin: () => void;
 

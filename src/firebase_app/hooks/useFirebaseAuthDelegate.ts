@@ -121,9 +121,12 @@ export const useFirebaseAuthDelegate = (
         const auth = getAuth();
         const applicationVerifier = new RecaptchaVerifier("phone-auth-recaptcha", {}, auth);
         setAuthLoading(true);
-        signInWithPhoneNumber(auth, phone, applicationVerifier)
+        return signInWithPhoneNumber(auth, phone, applicationVerifier)
             .catch(setAuthProviderError)
-            .then(() => setAuthLoading(false));
+            .then((res) => {
+                setAuthLoading(false)
+                return res;
+            });
     }
 
     const appleLogin = () => {
