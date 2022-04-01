@@ -36,11 +36,13 @@ export type FirebaseAuthDelegate =
 
     authLoading: boolean;
 
+    confirmationResult: void | ConfirmationResult,
+
     googleLogin: () => void;
 
     anonymousLogin: () => void;
 
-    phoneLogin: (phone: string, applicationVerifier: ApplicationVerifier) => ConfirmationResult;
+    phoneLogin: (phone: string, applicationVerifier: ApplicationVerifier) => void;
 
     appleLogin: () => void;
 

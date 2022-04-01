@@ -25,6 +25,7 @@ import {
     FirebaseSignInProvider
 } from "../models/auth";
 import {
+    ConfirmationResult,
     createUserWithEmailAndPassword,
     signInAnonymously
 } from "@firebase/auth";
@@ -49,6 +50,7 @@ export const useFirebaseAuthDelegate = (
     const [initialLoading, setInitialLoading] = useState(true);
     const [authLoading, setAuthLoading] = useState(true);
     const [loginSkipped, setLoginSkipped] = useState<boolean>(false);
+    const [confirmationResult, setConfirmationResult] = useState<void | ConfirmationResult>();
 
     function skipLogin() {
         setLoginSkipped(true);
@@ -124,7 +126,7 @@ export const useFirebaseAuthDelegate = (
             .catch(setAuthProviderError)
             .then((res) => {
                 setAuthLoading(false)
-                return res;
+                setConfirmationResult(res)
             });
     }
 
@@ -212,6 +214,7 @@ export const useFirebaseAuthDelegate = (
         authError: authProviderError,
         authLoading,
         initialLoading,
+        confirmationResult,
         signOut: onSignOut,
         loginSkipped,
         skipLogin,
